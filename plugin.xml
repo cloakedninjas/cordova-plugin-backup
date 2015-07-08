@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-plugin-backup" version="1.0.0">
+    <name>Backup</name>
+    <description>Cordova Backup Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,backup</keywords>
+
+    <js-module src="www/backup.js" name="Backup">
+        <clobbers target="plugins.backup" />
+    </js-module>
+
+    <platform name="android">
+        <preference name="BACKUP_SERVICE_KEY" />
+
+        <!-- Save backup key for use during build process -->
+        <source-file src="src/android/backup_service_key_param.xml" target-dir="res/values/" />
+        <config-file target="res/values/backup_service_key_param.xml" parent="/*">
+            <string name="billing_key_param">$BACKUP_SERVICE_KEY</string>
+        </config-file>
+
+
+        <hook type="after_plugin_install" src="src/scripts/installDeps.js" />
+
+        <!-- Cordova doesn't allow adding of XML attributes - modify XML via hook -->
+        <hook type="before_build" src="src/scripts/addAndroidBackupAgent.js" />
+
+
+        <source-file src="src/android/com/cloakedninjas/cordova/plugins/Backup.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
+        <source-file src="src/android/com/cloakedninjas/cordova/plugins/BackupAgentHelper.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="Backup" >
+                <param name="android-package" value="com.cloakedninjas.cordova.plugins.Backup"/>
+            </feature>
+        </config-file>
+    </platform>
+</plugin>

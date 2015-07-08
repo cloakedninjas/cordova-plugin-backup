@@ -1,0 +1,15 @@
+{
+  "name": "cordova-plugin-backup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "xml2js": "^0.4.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Jackson <daniel@cloakedninjas.co.uk> (http://cloakedninjas.co.uk)",
+  "license": "ISC"
+}
