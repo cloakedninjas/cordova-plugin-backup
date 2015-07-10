@@ -21,15 +21,17 @@ import java.io.IOException;
 public class Backup extends CordovaPlugin {
 
     static final String LOG_TAG = "CordovaBackupPlugin";
+    static final Object sDataLock = new Object();
 
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+        Log.d(LOG_TAG, "JS call: " + action);
         if (action.equals("saveBackup")) {
             JSONObject data = args.getJSONObject(0);
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, this.saveBackup(data)));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, saveBackup(data)));
             return true;
         }
         else if (action.equals("checkForRestore")) {
-            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, this.checkForRestore()));
+            callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, checkForRestore()));
             return true;
         }
 
@@ -40,12 +42,13 @@ public class Backup extends CordovaPlugin {
     private boolean saveBackup(JSONObject data) {
         BufferedWriter writer = null;
         try {
-            writer = new BufferedWriter(new FileWriter(BackupAgentHelper.FILE_NAME));
+            Context context = cordova.getActivity().getApplicationContext();
+            File file = new File(context.getFilesDir(), BackupAgentHelper.FILE_NAME);
+            writer = new BufferedWriter(new FileWriter(file));
             writer.write(data.toString());
 
-            Context context = this.cordova.getActivity().getApplicationContext();
-
             // request a backup from Android system
+            Log.d(LOG_TAG, "Requesting Backup");
             BackupManager bm = new BackupManager(context);
             bm.dataChanged();
         } catch (IOException e) {
@@ -67,10 +70,11 @@ public class Backup extends CordovaPlugin {
         BufferedReader reader = null;
 
         try {
-            File f = new File(BackupAgentHelper.FILE_NAME);
+            Context context = cordova.getActivity().getApplicationContext();
+            File file = new File(context.getFilesDir(), BackupAgentHelper.FILE_NAME);
 
-            if (f.exists() && !f.isDirectory()) {
-                reader = new BufferedReader(new FileReader(BackupAgentHelper.FILE_NAME));
+            if (file.exists() && !file.isDirectory()) {
+                reader = new BufferedReader(new FileReader(file));
                 StringBuilder sb = new StringBuilder();
                 String line = reader.readLine();
 
@@ -98,5 +102,4 @@ public class Backup extends CordovaPlugin {
 
         return new JSONObject();
     }
-
 }

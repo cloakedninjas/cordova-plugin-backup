@@ -19,12 +19,15 @@
             <string name="billing_key_param">$BACKUP_SERVICE_KEY</string>
         </config-file>
 
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+           <!-- Write-file Permission -->
+           <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+       </config-file>
 
         <hook type="after_plugin_install" src="src/scripts/installDeps.js" />
 
         <!-- Cordova doesn't allow adding of XML attributes - modify XML via hook -->
         <hook type="before_build" src="src/scripts/addAndroidBackupAgent.js" />
-
 
         <source-file src="src/android/com/cloakedninjas/cordova/plugins/Backup.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
         <source-file src="src/android/com/cloakedninjas/cordova/plugins/BackupAgentHelper.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
