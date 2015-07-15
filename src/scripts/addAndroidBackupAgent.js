@@ -45,9 +45,6 @@ module.exports = function (context) {
   }
 
   function modifyXmlValues() {
-    // add the BackupAgent attribute
-    manifestObject.manifest.$['android:backupAgent'] = 'com.cloakedninjas.cordova.plugins.BackupAgentHelper';
-
     // set the API key
     var applicationSection = manifestObject.manifest.application[0],
       apiKeyValue = {
@@ -56,6 +53,10 @@ module.exports = function (context) {
           'android:value': backupServiceKey,
         }
       };
+
+    // add the BackupAgent attribute
+    applicationSection.$['android:backupAgent'] = 'com.cloakedninjas.cordova.plugins.BackupAgentHelper';
+    applicationSection.$['android:allowBackup'] = 'true';
 
     if (applicationSection['meta-data']) {
       var addMetaDataEntry = true;
