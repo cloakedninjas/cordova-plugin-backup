@@ -35,6 +35,8 @@ A typical lifecycle is as follows:
 
 ### Backup
 
+#### `plugins.backup.save(data, [successCallback], [errorCallback]);`
+
 ```javascript
 var appData = {
   user: {
@@ -48,10 +50,12 @@ var appData = {
   }
 }
 
-plugins.backup.create(appData);
+plugins.backup.save(appData);
 ```
 
 ### Restore
+
+#### `plugins.backup.restore(successCallback, [errorCallback]);`
 
 ```javascript
 function handleRestore (data) {

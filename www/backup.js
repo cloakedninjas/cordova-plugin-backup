@@ -1,20 +1,20 @@
-var Backup = function() {};
+var backup = {
+  save: function(data, success, fail) {
+    cordova.exec(success, fail, 'Backup', 'saveBackup', [data]);
+  },
 
-Backup.prototype.save = function(success, fail) {
-  cordova.exec(success, fail, 'Backup', 'saveBackup', []);
+  restore: function(success, fail) {
+    cordova.exec(success, fail, 'Backup', 'checkForRestore', []);
+  }
 };
 
-Backup.prototype.restore = function(success, fail) {
-  cordova.exec(success, fail, 'Backup', 'checkForRestore', []);
-};
-
-if (!window.plugins) {
-  window.plugins = {};
-}
-if (!window.plugins.backup) {
-  window.plugins.backup = new Backup();
+if (window) {
+  if (!window.plugins) {
+    window.plugins = {};
+  }
+  if (!window.plugins.backup) {
+    window.plugins.backup = backup;
+  }
 }
 
-if (module.exports) {
-  module.exports = Backup;
-}
+module.exports = backup;
