@@ -35,7 +35,7 @@ module.exports = function (context) {
         }
       }
       else {
-        deferral.reject(new Error('Unable to extract the Billing Service API key from: ' + backupServiceKeyLocation));
+        deferral.reject(new Error('Unable to extract the Backup Service API key from: ' + backupServiceKeyLocation));
       }
     });
   });

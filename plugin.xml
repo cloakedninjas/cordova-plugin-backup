@@ -16,7 +16,7 @@
         <!-- Save backup key for use during build process -->
         <source-file src="src/android/backup_service_key_param.xml" target-dir="res/values/" />
         <config-file target="res/values/backup_service_key_param.xml" parent="/*">
-            <string name="billing_key_param">$BACKUP_SERVICE_KEY</string>
+            <string name="backup_service_key">$BACKUP_SERVICE_KEY</string>
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest">
