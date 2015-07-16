@@ -1,5 +1,13 @@
 # Cordova Backup Plugin
 
+### ⚠ Warning ⚠
+This plugin is untested. In my development I was only able to successfully backup once, subsequent calls to `saveBackup()` never fully propogated to the Backup Transport agent on my testing device. Upon calling `checkForRestore()` I would always get my initial data packet. Whether this is an issue with my device, app or Android is still unknown to me.
+
+http://stackoverflow.com/questions/31436547/android-data-backup-aborted-by-rate-limiter
+
+If someone successfully uses this plugin, open an issue and get in touch!
+
+
 ## Summary
 
 This plugin makes use of [Android's Data Backup service](http://developer.android.com/guide/topics/data/backup.html) to backup and restore app data. Currently only Android is supported.
