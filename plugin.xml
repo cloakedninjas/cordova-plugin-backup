@@ -29,6 +29,9 @@
         <!-- Cordova doesn't allow adding of XML attributes - modify XML via hook -->
         <hook type="before_build" src="src/scripts/addAndroidBackupAgent.js" />
 
+        <!-- Cleanup if plugin is removed -->
+        <hook type="before_plugin_rm" src="src/scripts/removeAndroidBackupAgent.js" />
+
         <source-file src="src/android/com/cloakedninjas/cordova/plugins/Backup.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
         <source-file src="src/android/com/cloakedninjas/cordova/plugins/BackupAgentHelper.java" target-dir="src/com/cloakedninjas/cordova/plugins" />
 
